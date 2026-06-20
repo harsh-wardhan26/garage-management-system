@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:6.0
+    container_name: garage-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - garage-network
+
+  # Node/Express Backend API Service
+  backend:
+    build: ./garage-backend
+    container_name: garage-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/garage_management
+      - JWT_SECRET=your_jwt_secret_key_here
+      - JWT_EXPIRE=30d
+      - PORT=5000
+      - NODE_ENV=production
+    depends_on:
+      - mongodb
+    networks:
+      - garage-network
+
+  # React Frontend client Nginx Service
+  frontend:
+    build: ./garage-frontend
+    container_name: garage-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - garage-network
+
+# Persistent storage volumes mapping
+volumes:
+  mongo_data:
+
+# Internal virtual bridge network configurations
+networks:
+  garage-network:
+    driver: bridge
