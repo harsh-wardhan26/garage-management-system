@@ -203,10 +203,4 @@ All endpoints (except login/register) require JWT authorization. Send token insi
 
 ---
 
-## 📸 Screenshots
 
-*(Add screenshots here to display application interface dashboards)*
-
-| Operating Dashboard | Customer Registry (Data Grid) |
-|---|---|
-| ![Dashboard Mockup](https://raw.githubusercontent.com/username/project/main/screenshots/dashboard.png) | ![Data Grid Mockup](https://raw.githubusercontent.com/username/project/main/screenshots/datagrid.png) |
